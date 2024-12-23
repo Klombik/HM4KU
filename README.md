@@ -78,6 +78,7 @@
 
 Запуск программы осуществляется из командной строки:
 ```
+python create_test_program.py
 python assembler.py test_program.asm program.bin program.log
 python interpreter.py program.bin result.csv 100-107
 ```
