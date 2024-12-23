@@ -78,15 +78,15 @@
 
 Запуск программы осуществляется из командной строки:
 ```
-python assembler.py program.txt program.bin program_log.csv
-python interpreter.py program.bin result.csv 0-31
+python assembler.py test_program.asm program.bin program.log
+python interpreter.py program.bin result.csv 100-107
 ```
 где:
 * program.txt - файл с программой для обработки
 * program.bin - файл с бинарным представлением программы
 * program_log.csv - файл логов работы программы-ассемблера
 * result.csv - файл результата работы программы в CSV формате
-* 0-31 - байты, используемые для интерпретации бинарного файла
+* 100-107 - байты, используемые для интерпретации бинарного файла
 
 Для запуска юнит-тестов в коммандной строке необходимо написать:
 ```
