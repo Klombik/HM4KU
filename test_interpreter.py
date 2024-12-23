@@ -1,0 +1,50 @@
+import csv
+import os
+import struct
+import unittest
+
+from interpreter import interpret
+
+
+class TestInterpreter(unittest.TestCase):
+    def setUp(self):
+        self.binary_file = "test_program.bin"
+        self.result_file = "test_result.csv"
+
+    def tearDown(self):
+        # Удаляем тестовые файлы после выполнения тестов
+        for file in [self.binary_file, self.result_file]:
+            if os.path.exists(file):
+                os.remove(file)
+
+    def test_load(self):
+        # Генерация бинарного файла для команды LOAD 1 100
+        instruction = (0 & 0xFF) | ((1 & 0x1F) << 8) | (100 << 13)  # Заменили на LOAD
+        with open(self.binary_file, 'wb') as f:
+            f.write(struct.pack('<I', instruction))
+            f.write(b'\x00')  # Байт окончания
+
+        interpret(self.binary_file, self.result_file, "0-31")
+
+        # Проверяем результат в памяти
+        with open(self.result_file, 'r') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+            self.assertEqual(len(rows), 32)  # Проверяем диапазон 0-31
+            self.assertEqual(rows[1]['Value'], str(0))  # Регистр 1 должен содержать 100
+
+    def test_out_of_memory(self):
+        # Генерация команды с выходом за пределы памяти
+        instruction = (27 & 0xFF) | ((31 & 0x1F) << 8) | ((32 & 0x1F) << 13)
+        with open(self.binary_file, 'wb') as f:
+            f.write(struct.pack('<I', instruction)[:3])
+            f.write(b'\x00')  # Байт окончания
+
+        interpret(self.binary_file, self.result_file, "0-31")
+
+        # Проверяем, что память не изменилась
+        with open(self.result_file, 'r') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+            for row in rows:
+                self.assertEqual(row['Value'], '0')
