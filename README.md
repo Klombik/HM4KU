@@ -96,10 +96,11 @@ python -m unittest test_assembler.py test_interpreter.py
 
 ## Результат юнит-тестов программы
 
-![2024-12-09](https://github.com/user-attachments/assets/801b59b6-b3bf-49a8-98e5-ffffca7f4eba)
+
+![photo_2024-12-23_14-06-18](https://github.com/user-attachments/assets/0b230aeb-5c86-4595-b2d4-a5f7d55a64ed)
 
 
 ## Результат работы программы
 
-![2024-12-09 (1)](https://github.com/user-attachments/assets/13676c1f-7251-497a-8ca7-66a6a2aa978d)
 
+![photo_2024-12-23_14-05-24](https://github.com/user-attachments/assets/2a57f1c4-623b-4d43-8c1c-6d3174167eac)
